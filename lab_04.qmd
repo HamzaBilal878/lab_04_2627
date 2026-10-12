@@ -21,6 +21,14 @@ This lab accompanies the Week 4 notes, [*Data Wrangling I - Loading, Cleaning an
 - [ ] For each of the files, display the first few rows of the file.
 
 ::: {.solution}
+```{r}
+library(tidyverse)
+read_csv("data/part1/data1.csv")
+read_delim("data/part1/data2.txt",delim="\t") 
+read_delim("data/part1/data3" , delim=";")
+  
+```
+
 
 :::
 
@@ -37,6 +45,11 @@ The file `data3` contains information about books in a bookshop.
 - [ ] `readr` also has a function called `read_csv2`, which reads files that use `;` as a delimiter. Try loading `data3` with `read_csv2` instead. Compare the `PriceUSD` and `AvgRating` columns to the raw file. What has gone wrong?
 
 ::: {.solution}
+```{r}
+data3<- read_delim("data/part1/data3", col_types=cols(ISBN=col_character()))
+data3 |> head()
+data3_eu<-
+```
 
 :::
 
@@ -104,19 +117,29 @@ Try to format your code nicely so it is readable.
 
 
 ::: {.solution}
+```{r}
+diamonds<- diamonds|>
+  mutate(volume=x*y*z)
+diamonds
+
+```
 
 :::
 
 - [ ] Create a `tibble` containing only the numeric columns of `diamonds`. (Hint: look at the tidyselect callout in the notes.)
 
 ::: {.solution}
+```{r}
+diamonds|>
+  select(carat,depth,table,price,x,y,z,volume)
+```
 
 :::
 
 Now answer the following research questions.
 
-- [ ] What is the average price of all the diamonds in the dataset?
-- [ ] What is the volume of the 5 highest priced diamonds?
+- [x ] What is the average price of all the diamonds in the dataset?
+- [x ] What is the volume of the 5 highest priced diamonds?
 - [ ] What is the average, minimum and maximum price of diamonds for each cut?
 - [ ] Ideal is the best cut, yet it has the lowest average price. Can you explain why? (Hint: compare the average `carat` of each cut.)
 - [ ] For each cut, what is the average price-per-carat for diamonds with that cut?
@@ -124,6 +147,17 @@ Now answer the following research questions.
 - [ ] Create a `tibble` containing diamonds that are "unusually" large (having volume more than three standard deviations from the mean volume)?
 
 ::: {.solution}
+```{r}
+diamonds|>
+  summarise(avg=mean(price))
+```
+```{r}
+diamonds|>
+  arrange(desc(price))|>
+  head(5)|>
+  select(volume)
+
+```
 
 :::
 
@@ -154,6 +188,11 @@ However, not all students take all assessments, and assessments the student has 
 - [ ] Load the file and look at it. Recall the three rules of tidy data from the notes. Is this table tidy? If not, which rule(s) does it break?
 
 ::: {.solution}
+```{r}
+student_data <- read_csv("data/part3/assessment.csv")
+# breaks the 3rd rule bcz of NA
+student_data
+```
 
 :::
 
@@ -161,6 +200,9 @@ However, not all students take all assessments, and assessments the student has 
 - [ ] Compute each student's overall average, and the number of assessments they took. (Hint: look at the "Other Summarise Functions" tip in the notes.)
 
 ::: {.solution}
+```{r}
+
+```
 
 :::
 
